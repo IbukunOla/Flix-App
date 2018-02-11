@@ -44,7 +44,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             } else if let data = data {
                 let dataDict = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDict["results"] as! [[String: Any]]
-                print(dataDict)
                 self.movies = movies
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -77,5 +76,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         return new_cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! MovieCell
+        let index = tableView.indexPath(for: cell)!
+        let dest = segue.destination as! DetailsUIViewController
+        dest.movie = movies[index.row]
+    }
 
 }
