@@ -19,6 +19,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor(red: 80, green: 255, blue: 162, alpha: 1)
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
