@@ -8,15 +8,6 @@
 
 import UIKit
 
-enum MovieKeys {
-    static let baseUrl = "https://image.tmdb.org/t/p/w500"
-    static let tl = "title"
-    static let bdp = "backdrop_path"
-    static let pp = "poster_path"
-    static let rd = "release_date"
-    static let ov = "overview"
-}
-
 class DetailsUIViewController: UIViewController {
 
     @IBOutlet weak var backdropImageView: UIImageView!
@@ -25,22 +16,21 @@ class DetailsUIViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
-    var movie: [String: Any]?
+    var movie: Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let movie = movie{
-            titleLabel.text = movie[MovieKeys.tl] as? String
-            releaseDateLabel.text = movie[MovieKeys.rd] as? String
-            overviewLabel.text = movie[MovieKeys.ov] as? String
-            let backdropPathString = movie[MovieKeys.bdp] as! String
-            let posterPathString = movie[MovieKeys.pp] as! String
-            let backdropUrl = URL(string: MovieKeys.baseUrl + backdropPathString)!
-            backdropImageView.af_setImage(withURL: backdropUrl)
-            
-            let posterPathUrl = URL(string: MovieKeys.baseUrl + posterPathString)!
-            posterImageView.af_setImage(withURL: posterPathUrl)
+            titleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate
+            overviewLabel.text = movie.overview
+            if movie.backdropUrl != nil {
+                backdropImageView.af_setImage(withURL: backdropUrl)
+            }
+            if movie.posterUrl != nil {
+                posterImageView.af_setImage(withURL: posterPathUrl)
+            }
         }
     }
 
